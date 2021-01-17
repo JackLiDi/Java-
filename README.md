@@ -11,5 +11,14 @@
 即可实现两份文件的内容互换。文件格式如下：
 
 ![image](https://github.com/JackLiDi/Java-/blob/main/img/1.PNG)
+待翻译文件
 
 ![image](https://github.com/JackLiDi/Java-/blob/main/img/2.PNG)
+已翻译好文件
+
+还有要注意两个文件的路径，我是放在d盘test文件夹下，
+![image](https://github.com/JackLiDi/Java-/blob/main/img/3.PNG)
+
+你们要不是则需要改变代码：
+![image](https://github.com/JackLiDi/Java-/blob/main/img/4.PNG)
+
