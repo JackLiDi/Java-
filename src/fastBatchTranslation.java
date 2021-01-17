@@ -13,19 +13,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /* 
- * ¸Ã¹¦ÄÜÊµÏÖ¶ÁÈ¡×ÖÄ»ÎÄ¼şÖĞµÄÍâÓï£¬µ÷È¡°Ù¶ÈAPIÅúÁ¿·­Òë³ÉÖĞÎÄ
- * ²¢Éú³ÉÖĞÎÄÎÄ¼ş
- * ¿ìËÙÊµÏÖÍâÓï×ÖÄ»ÎÄ¼ş·­Òë
+ * è¯¥åŠŸèƒ½å®ç°è¯»å–å­—å¹•æ–‡ä»¶ä¸­çš„å¤–è¯­ï¼Œè°ƒå–ç™¾åº¦APIæ‰¹é‡ç¿»è¯‘æˆä¸­æ–‡
+ * å¹¶ç”Ÿæˆä¸­æ–‡æ–‡ä»¶
+ * å¿«é€Ÿå®ç°å¤–è¯­å­—å¹•æ–‡ä»¶ç¿»è¯‘
  * */
 
 public class fastBatchTranslation {
 	
-	private static final String APP_ID = "20210114000671426"; //°Ù¶ÈAI app_id
-	private static final String SECURITY_KEY = "Oq1u7G2gki8IcnPDAMFF"; //°Ù¶ÈAI SECURITY_KEY
+	private static final String APP_ID = "20210114000671426"; //ç™¾åº¦AI app_id
+	private static final String SECURITY_KEY = "Oq1u7G2gki8IcnPDAMFF"; //ç™¾åº¦AI SECURITY_KEY
 	
-	/*µ÷ÓÃ°Ù¶ÈApi·­ÒëÎÄ±¾ÄÚÈİ
-	 * @param sourceTranslation ĞèÒª·­ÒëµÄÎÄ±¾ÄÚÈİ
-	 * @return ÒëÎÄÄÚÈİ
+	/*è°ƒç”¨ç™¾åº¦Apiç¿»è¯‘æ–‡æœ¬å†…å®¹
+	 * @param sourceTranslation éœ€è¦ç¿»è¯‘çš„æ–‡æœ¬å†…å®¹
+	 * @return è¯‘æ–‡å†…å®¹
 	 * @date  2021-1-17
 	 */
 	static String translationOperation(String sourceTranslation) {
@@ -36,26 +36,26 @@ public class fastBatchTranslation {
 
 	        String query = sourceTranslation;
 	        
-	        String resultMsg = api.getTransResult(query, "auto", "zh"); //µÃµ½°Ù¶ÈAPI·µ»ØµÄJson×Ö·û´®
+	        String resultMsg = api.getTransResult(query, "auto", "zh"); //å¾—åˆ°ç™¾åº¦APIè¿”å›çš„Jsonå­—ç¬¦ä¸²
 	        
-	        //½âÎö×Ö·û´®µÃµ½ÒëÎÄÄÚÈİ
+	        //è§£æå­—ç¬¦ä¸²å¾—åˆ°è¯‘æ–‡å†…å®¹
 	        if(resultMsg !=  null && !resultMsg.equals("")) {
 	        	
-	        	JsonObject  jsonObj = (JsonObject)new JsonParser().parse(resultMsg);    //½âÎöjson×Ö¶Î
+	        	JsonObject  jsonObj = (JsonObject)new JsonParser().parse(resultMsg);    //è§£æjsonå­—æ®µ
 	        	
-		        String res = jsonObj.get("trans_result").toString();    //»ñÈ¡json×Ö¶ÎÖĞµÄ result×Ö¶Î£¬ÒòÎªresult×Ö¶Î±¾Éí¼´ÊÇÒ»¸öjsonÊı×é×Ö¶Î£¬ËùÒÔÒª½øÒ»²½½âÎö
+		        String res = jsonObj.get("trans_result").toString();    //è·å–jsonå­—æ®µä¸­çš„ resultå­—æ®µï¼Œå› ä¸ºresultå­—æ®µæœ¬èº«å³æ˜¯ä¸€ä¸ªjsonæ•°ç»„å­—æ®µï¼Œæ‰€ä»¥è¦è¿›ä¸€æ­¥è§£æ
 		        
-		        JsonArray  js = new JsonParser().parse(res).getAsJsonArray();    //½âÎöjsonÊı×é×Ö¶Î
+		        JsonArray  js = new JsonParser().parse(res).getAsJsonArray();    //è§£æjsonæ•°ç»„å­—æ®µ
 		        
-		        jsonObj = (JsonObject)js.get(0);    //resultÊı×éÖĞÖ»ÓĞÒ»¸öÔªËØ£¬ËùÒÔÖ±½ÓÈ¡µÚÒ»¸öÔªËØ
+		        jsonObj = (JsonObject)js.get(0);    //resultæ•°ç»„ä¸­åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œæ‰€ä»¥ç›´æ¥å–ç¬¬ä¸€ä¸ªå…ƒç´ 
 
-		        String translation = jsonObj.get("dst").getAsString();  //µÃµ½dst×Ö¶Î£¬¼´ÒëÎÄ£¬²¢Êä³ö
+		        String translation = jsonObj.get("dst").getAsString();  //å¾—åˆ°dstå­—æ®µï¼Œå³è¯‘æ–‡ï¼Œå¹¶è¾“å‡º
 				
 		        return translation;
 				
 	        }else {
 	        	
-	        	System.out.println("·­ÒëÎª¿Õ£¡");
+	        	System.out.println("ç¿»è¯‘ä¸ºç©ºï¼");
 	        	
 	        	return null;
 	        	
@@ -65,7 +65,7 @@ public class fastBatchTranslation {
 			
 		}catch(Exception e) {
 			
-			System.out.println("·­ÒëÊ§°Ü");
+			System.out.println("ç¿»è¯‘å¤±è´¥");
 			
 			e.printStackTrace();
 			
@@ -76,9 +76,9 @@ public class fastBatchTranslation {
 	}
     
 	/*
-	 * ½«ÎÄ±¾ÄÚÈİ¶ÁÈëBufferÖĞ
+	 * å°†æ–‡æœ¬å†…å®¹è¯»å…¥Bufferä¸­
 	 * @param buffer buffer
-	 * @param filepath ÎÄ¼şÂ·¾¶
+	 * @param filepath æ–‡ä»¶è·¯å¾„
 	 * @throws IOException
 	 * @date  2021-1-17
 	 */
@@ -88,13 +88,13 @@ public class fastBatchTranslation {
 		FileInputStream is = null;
 
 		is = new FileInputStream(filePath);
-		String line = null; // ±£´æÃ¿ĞĞÄÚÈİ
+		String line = null; // ä¿å­˜æ¯è¡Œå†…å®¹
 
 		reader = new BufferedReader(new InputStreamReader(is,"utf-8"));
 
-		line = reader.readLine(); // ¶ÁÈ¡µÚÒ»ĞĞ
+		line = reader.readLine(); // è¯»å–ç¬¬ä¸€è¡Œ
 
-		while (line != null) {// lineÎª¿ÕËµÃ÷¶ÁÍêÁË
+		while (line != null) {// lineä¸ºç©ºè¯´æ˜è¯»å®Œäº†
 
 			buffer.append(line);
 			buffer.append("\r\n");
@@ -108,9 +108,9 @@ public class fastBatchTranslation {
 	}
 	
 	/*
-	 * ×xÈ¡ÎÄ±¾ÎÄ¼şÄÚÈİ
-	 * @param filePath ÎÄ¼şËùÔÚÂ·½
-	 * @return ÎÄ±¾ÄÚÈİ
+	 * è®€å–æ–‡æœ¬æ–‡ä»¶å†…å®¹
+	 * @param filePath æ–‡ä»¶æ‰€åœ¨è·¯å¾‘
+	 * @return æ–‡æœ¬å†…å®¹
 	 * @throws IOException
 	 * @date 2021-1-17
 	 */
@@ -125,21 +125,21 @@ public class fastBatchTranslation {
 	}
 	
 	/*
-	 * ¶ÁÈ¡×ÖÄ»ÎÄ¼ş£¬·­Òë£¬²¢Ğ´ÈëÉú³ÉĞÂÎÄ¼ş
-	 * @param iniPath  ÎÄ¼şÂ·¾¶
-	 * @return ²¼¶ûÀàĞÍ   true:Ö´ĞĞ³É¹¦   false:Ö´ĞĞÊ§°Ü
+	 * è¯»å–å­—å¹•æ–‡ä»¶ï¼Œç¿»è¯‘ï¼Œå¹¶å†™å…¥ç”Ÿæˆæ–°æ–‡ä»¶
+	 * @param iniPath  æ–‡ä»¶è·¯å¾„
+	 * @return å¸ƒå°”ç±»å‹   true:æ‰§è¡ŒæˆåŠŸ   false:æ‰§è¡Œå¤±è´¥
 	 * @date 2021-1-17
 	 */
 	static boolean batchTranslationOperation(String iniPath) {
 
 
-		File _file = new File(iniPath);//Ìæ»»ÎÄ¼şÂ·¾¶
+		File _file = new File(iniPath);//æ›¿æ¢æ–‡ä»¶è·¯å¾„
 
 		PrintWriter out = null;
 
 		try {
 
-			//Ìæ»»ÎÄ¼ş²Ù×÷
+			//æ›¿æ¢æ–‡ä»¶æ“ä½œ
 
 			String recMsg = readFile(iniPath);
 
@@ -153,10 +153,10 @@ public class fastBatchTranslation {
 
 				if(!content[i].equals("")) {
 
-					boolean str2 = content[i].matches(".*[a-zA-z].*");//ÅĞ¶ÏÃ¿ĞĞÊÇ·ñ°üº¬×ÖÄ¸
+					boolean str2 = content[i].matches(".*[a-zA-z].*");//åˆ¤æ–­æ¯è¡Œæ˜¯å¦åŒ…å«å­—æ¯
 
 
-					if (str2){//Èô°üº¬×ÖÄ¸Ôòµ÷ÓÃ°Ù¶È·­Òë     ·ñÔòÔòÌø³öÖ±½ÓĞ´ÈëÎÄ¼ş
+					if (str2){//è‹¥åŒ…å«å­—æ¯åˆ™è°ƒç”¨ç™¾åº¦ç¿»è¯‘     å¦åˆ™åˆ™è·³å‡ºç›´æ¥å†™å…¥æ–‡ä»¶
 
 						String translationMsg = translationOperation(content[i]);
 
@@ -207,23 +207,23 @@ public class fastBatchTranslation {
 		try {
 			
 			
-			  	String iniPath = "D:/test/eng.srt";//²Ù×÷ÎÄ¼şÂ·¾¶
+			  	String iniPath = "D:/test/eng.srt";//æ“ä½œæ–‡ä»¶è·¯å¾„
 			
 			  	boolean resultMsg = batchTranslationOperation(iniPath);
 			
 			  	if(resultMsg == true) {
 			  		
-			  		System.out.println("ÅúÁ¿·­Òë³É¹¦");
+			  		System.out.println("æ‰¹é‡ç¿»è¯‘æˆåŠŸ");
 			  		
 			  	}else {
 			  		
-			  		System.out.println("ÅúÁ¿·­ÒëÊ§°Ü");
+			  		System.out.println("æ‰¹é‡ç¿»è¯‘å¤±è´¥");
 			  		
 			  	}
 			
 			}catch(Exception e) {
 				
-				System.out.println("Ö´ĞĞÎÄ¼ş³ö´í");
+				System.out.println("æ‰§è¡Œæ–‡ä»¶å‡ºé”™");
 				
 				e.printStackTrace();
 			}
