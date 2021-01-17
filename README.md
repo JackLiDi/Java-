@@ -28,5 +28,6 @@
 并在代码中填写APi_id和key,才能实现此功能。不知道如何申请可自行百度，百度通用翻译API是免费的，但是
 速度是有点慢的，但还可以接受。
 
+![image](https://github.com/JackLiDi/Java-/blob/main/img/5.PNG)
 
 
