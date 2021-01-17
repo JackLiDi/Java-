@@ -36,5 +36,6 @@
 
 填写自己申请的app_id和key
 
+项目所需要的jar包都在resource文件下，下载导入即可
 
 
