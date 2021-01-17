@@ -20,8 +20,8 @@ import com.google.gson.JsonParser;
 
 public class fastBatchTranslation {
 	
-	private static final String APP_ID = "20210114000671426"; //百度AI app_id
-	private static final String SECURITY_KEY = "Oq1u7G2gki8IcnPDAMFF"; //百度AI SECURITY_KEY
+	private static final String APP_ID = ""; //百度AI app_id
+	private static final String SECURITY_KEY = ""; //百度AI SECURITY_KEY
 	
 	/*调用百度Api翻译文本内容
 	 * @param sourceTranslation 需要翻译的文本内容
