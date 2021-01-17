@@ -9,4 +9,7 @@
  
 注意：以上两个功能不同点在于：功能1需先手动将外语字幕翻译成一份中文字幕，然后调用程序
 即可实现两份文件的内容互换。文件格式如下：
+
 ![image](https://github.com/JackLiDi/Java-/blob/main/img/1.PNG)
+
+![image](https://github.com/JackLiDi/Java-/blob/main/img/2.PNG)
