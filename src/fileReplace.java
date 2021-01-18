@@ -8,100 +8,111 @@ import java.io.PrintWriter;
 public class fileReplace {
 	
 	static boolean  fileReplacementOperation(String sourceFilePath,String iniPath) {
-		
-		File sourceFile = new File(sourceFilePath);//æºæ–‡ä»¶è·¯å¾„
-		File _file = new File(iniPath);//æ›¿æ¢æ–‡ä»¶è·¯å¾„
-		
+
+		File sourceFile = new File(sourceFilePath);//Ô´ÎÄ¼şÂ·¾¶
+		File _file = new File(iniPath);//Ìæ»»ÎÄ¼şÂ·¾¶
+
 		byte[] sourceFileContext = new byte[(int) sourceFile.length()];
 		byte[] fileContext = new byte[(int) _file.length()];
-		
+
 		FileInputStream in = null;
 		FileInputStream sourceFileIn = null;
 		PrintWriter out = null;
-		
+
 		try {
-			//æºæ–‡ä»¶è¯»å–æ“ä½œ
+			//Ô´ÎÄ¼ş¶ÁÈ¡²Ù×÷
 			sourceFileIn = new FileInputStream(sourceFile);
 			sourceFileIn.read(sourceFileContext);
 			String sourceFileStr = new String(sourceFileContext,"utf-8");
-			String[] sourceFileContent = sourceFileStr.split("\r\n");
-			
-			
-			
-			//æ›¿æ¢æ–‡ä»¶æ“ä½œ
-		    in = new FileInputStream(_file);
-		    in.read(fileContext);
-		    String str = new String(fileContext,"utf-8");
-		    String[] content = str.split("\r\n");
-		    String newStr = new String();
-		    
-		    for(int i=0;i<content.length;i++) {
-		    	
-		    	if(!content[i].equals("")) {
-		    		
-		    		 if (!Character.isDigit(content[i].charAt(0))){//æ£€æŸ¥å­—ç¬¦ä¸²é¦–å­—ç¬¦æ˜¯å¦ä¸ºæ•°å­—
-		    			 content[i] = content[i].replace(content[i], sourceFileContent[i]);
-		    			 
-		    		 }
-		    		 
-		    		 newStr += content[i]+"\r\n";
-//	    		     Thread.sleep(100);
-		    		 System.out.println(i);
-		    		
-		    	}else {
-		    		newStr += content[i]+"\r\n";
-		    		continue;
-		    	}
-		    	
-		    }
-		    
+			String[] sourceFileContent = sourceFileStr.split("(\r\n|\r|\n|\n\r)");//¸ù¾İ»»ĞĞ·û·Ö¸î×Ö·û´®
 
-		    out = new PrintWriter(_file,"utf-8");
-		    out.write(newStr);
-		    
-		    return true;
-		    
-		} catch (IOException e ) {
-		    return false;
-		} finally{
-		    try {
-			out.flush();
-			out.close();
-			in.close();
-			sourceFileIn.close();
-			
-		    } catch (IOException e) {
-			return false;
-		    }
-		    
-		}
-		
-		
-	}
-    
-	
-	
-	public static void main(String[] args) {
-		
-		try {
-			
-			String sourceFilePath = "D:/test/chi.txt";//æºæ–‡ä»¶è·¯å¾„
-			String iniPath = "D:/test/eng.txt";//æ“ä½œæ–‡ä»¶è·¯å¾„
-			
-			boolean resultMsg = fileReplacementOperation(sourceFilePath,iniPath);
-			
-			if(resultMsg == true) {
-				System.out.println("æ›¿æ¢æˆåŠŸ");
-			}else {
-				System.out.println("æ›¿æ¢å¤±è´¥");
+
+
+			//Ìæ»»ÎÄ¼ş²Ù×÷
+			in = new FileInputStream(_file);
+			in.read(fileContext);
+			String str = new String(fileContext,"utf-8");
+			String[] content = str.split("(\r\n|\r|\n|\n\r)");//¸ù¾İ»»ĞĞ·û·Ö¸î×Ö·û´®
+			String newStr = new String();
+
+			for(int i=0;i<content.length;i++) {
+
+				if(!content[i].equals("")) {
+
+					boolean str2 = content[i].matches(".*[a-zA-z].*");//ÅĞ¶ÏÃ¿ĞĞÊÇ·ñ°üº¬×ÖÄ¸
+
+					if (str2){//¼ì²é×Ö·û´®ÊÇ·ñÎª×ÖÄ¸
+
+						content[i] = content[i].replace(content[i], sourceFileContent[i]);
+
+					}
+
+					newStr += content[i]+"\r\n";
+					//	    		     Thread.sleep(100);
+					System.out.println(i);
+
+				}else {
+					newStr += content[i]+"\r\n";
+					continue;
+				}
+
 			}
-			
-		}catch(Exception e) {
-			System.out.println("æ‰§è¡Œæ–‡ä»¶å‡ºé”™");
-			e.printStackTrace();
+
+
+			out = new PrintWriter(_file,"utf-8");
+			out.write(newStr);
+
+			return true;
+
+		} catch (IOException e ) {
+			return false;
+		} finally{
+			try {
+				out.flush();
+				out.close();
+				in.close();
+				sourceFileIn.close();
+
+			} catch (IOException e) {
+				return false;
+			}
+
 		}
-		
-		
+
+
+	}
+
+
+
+	public static void main(String[] args) {
+
+		try {
+
+			String sourceFilePath = "D:/test/test/chi.srt";//Ô´ÎÄ¼şÂ·¾¶
+			
+			String iniPath = "D:/test/test/eng.srt";//²Ù×÷ÎÄ¼şÂ·¾¶
+
+			boolean resultMsg = fileReplacementOperation(sourceFilePath,iniPath);
+
+			if(resultMsg == true) {
+				
+				System.out.println("Ìæ»»³É¹¦");
+				
+			}else {
+				
+				System.out.println("Ìæ»»Ê§°Ü");
+				
+			}
+
+		}catch(Exception e) {
+			
+			System.out.println("Ö´ĞĞÎÄ¼ş³ö´í");
+			
+			e.printStackTrace();
+			
+		}
+
+
 
 	}
 
