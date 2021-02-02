@@ -14,15 +14,15 @@ import com.google.gson.JsonParser;
 
 public class fileTranslateOperation {
 
-	private static final String APP_ID = "20210114000671426"; // °Ù¶ÈAI app_id
-	private static final String SECURITY_KEY = "Oq1u7G2gki8IcnPDAMFF"; // °Ù¶ÈAI SECURITY_KEY
+	private static final String APP_ID = ""; // ç™¾åº¦AI app_id
+	private static final String SECURITY_KEY = ""; // ç™¾åº¦AI SECURITY_KEY
 
 	/*
-	 * ¶ÁÈ¡ÎÄ¼şÇ°ÅĞ¶ÏÎÄ¼ş±àÂë
+	 * è¯»å–æ–‡ä»¶å‰åˆ¤æ–­æ–‡ä»¶ç¼–ç 
 	 * 
-	 * @param newFile ĞèÒªÅĞ¶ÏµÄÎÄ¼ş
+	 * @param newFile éœ€è¦åˆ¤æ–­çš„æ–‡ä»¶
 	 * 
-	 * @return ÎÄ¼ş±àÂë¸ñÊ½
+	 * @return æ–‡ä»¶ç¼–ç æ ¼å¼
 	 * 
 	 * @date 2021-1-31
 	 */
@@ -34,17 +34,17 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * ½«ÎÄ¼şÖĞÓ¢ÎÄÌæ»»Îª¿ÕĞĞ
+	 * å°†æ–‡ä»¶ä¸­è‹±æ–‡æ›¿æ¢ä¸ºç©ºè¡Œ
 	 * 
-	 * @param iniPath ´ı´¦ÀíÎÄ¼şÂ·¾¶
+	 * @param iniPath å¾…å¤„ç†æ–‡ä»¶è·¯å¾„
 	 * 
-	 * @return ²¼¶ûÀàĞÍ true£º´¦Àí³É¹¦ false£º´¦ÀíÊ§°Ü
+	 * @return å¸ƒå°”ç±»å‹ trueï¼šå¤„ç†æˆåŠŸ falseï¼šå¤„ç†å¤±è´¥
 	 * 
 	 * @date 2021-1-31
 	 */
 	static boolean fileReplaceLetterOperation(String iniPath) {
 
-		File _file = new File(iniPath);// Ìæ»»ÎÄ¼şÂ·¾¶
+		File _file = new File(iniPath);// æ›¿æ¢æ–‡ä»¶è·¯å¾„
 
 		byte[] fileContext = new byte[(int) _file.length()];
 
@@ -53,23 +53,23 @@ public class fileTranslateOperation {
 
 		try {
 
-			// Ìæ»»ÎÄ¼ş²Ù×÷
+			// æ›¿æ¢æ–‡ä»¶æ“ä½œ
 			in = new FileInputStream(_file);
 			in.read(fileContext);
 
-			String fileCode = fileJudgingCode(_file); // ÅĞ¶ÏÎÄ¼ş±àÂë¸ñÊ½
+			String fileCode = fileJudgingCode(_file); // åˆ¤æ–­æ–‡ä»¶ç¼–ç æ ¼å¼
 
 			String str = new String(fileContext, fileCode);
-			String[] content = str.split("(\r\n|\r|\n|\n\r)");// ¸ù¾İ»»ĞĞ·û·Ö¸î×Ö·û´®
+			String[] content = str.split("(\r\n|\r|\n|\n\r)");// æ ¹æ®æ¢è¡Œç¬¦åˆ†å‰²å­—ç¬¦ä¸²
 			String newStr = new String();
 
 			for (int i = 0; i < content.length; i++) {
 
 				if (!content[i].equals("")) {
 
-					boolean str2 = content[i].matches(".*[a-zA-z].*");// ÅĞ¶ÏÃ¿ĞĞÊÇ·ñ°üº¬×ÖÄ¸
+					boolean str2 = content[i].matches(".*[a-zA-z].*");// åˆ¤æ–­æ¯è¡Œæ˜¯å¦åŒ…å«å­—æ¯
 
-					if (str2) {// ¼ì²é×Ö·û´®ÊÇ·ñÎª×ÖÄ¸
+					if (str2) {// æ£€æŸ¥å­—ç¬¦ä¸²æ˜¯å¦ä¸ºå­—æ¯
 
 						content[i] = content[i].replace(content[i], " ");
 
@@ -108,18 +108,18 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * ÖğĞĞÌæ»»Á½¸öÎÄ¼şÖĞµÄÄÚÈİ
+	 * é€è¡Œæ›¿æ¢ä¸¤ä¸ªæ–‡ä»¶ä¸­çš„å†…å®¹
 	 * 
-	 * @param sourceFilePath Ô´ÎÄ¼şÂ·¾¶ iniPath Ìæ»»ÎÄ¼şÂ·¾¶
+	 * @param sourceFilePath æºæ–‡ä»¶è·¯å¾„ iniPath æ›¿æ¢æ–‡ä»¶è·¯å¾„
 	 * 
-	 * @return ²¼¶ûÀàĞÍ true£º´¦Àí³É¹¦ false£º´¦ÀíÊ§°Ü
+	 * @return å¸ƒå°”ç±»å‹ trueï¼šå¤„ç†æˆåŠŸ falseï¼šå¤„ç†å¤±è´¥
 	 * 
 	 * @date 2021-1-31
 	 */
 	static boolean fileReplacementOperation(String sourceFilePath, String iniPath) {
 
-		File sourceFile = new File(sourceFilePath);// Ô´ÎÄ¼şÂ·¾¶
-		File _file = new File(iniPath);// Ìæ»»ÎÄ¼şÂ·¾¶
+		File sourceFile = new File(sourceFilePath);// æºæ–‡ä»¶è·¯å¾„
+		File _file = new File(iniPath);// æ›¿æ¢æ–‡ä»¶è·¯å¾„
 
 		byte[] sourceFileContext = new byte[(int) sourceFile.length()];
 		byte[] fileContext = new byte[(int) _file.length()];
@@ -129,32 +129,32 @@ public class fileTranslateOperation {
 		PrintWriter out = null;
 
 		try {
-			// Ô´ÎÄ¼ş¶ÁÈ¡²Ù×÷
+			// æºæ–‡ä»¶è¯»å–æ“ä½œ
 			sourceFileIn = new FileInputStream(sourceFile);
 			sourceFileIn.read(sourceFileContext);
 
-			String sourceFileCode = fileJudgingCode(sourceFile); // ÅĞ¶ÏÎÄ¼ş±àÂë¸ñÊ½
+			String sourceFileCode = fileJudgingCode(sourceFile); // åˆ¤æ–­æ–‡ä»¶ç¼–ç æ ¼å¼
 
 			String sourceFileStr = new String(sourceFileContext, sourceFileCode);
-			String[] sourceFileContent = sourceFileStr.split("(\r\n|\r|\n|\n\r)");// ¸ù¾İ»»ĞĞ·û·Ö¸î×Ö·û´®
+			String[] sourceFileContent = sourceFileStr.split("(\r\n|\r|\n|\n\r)");// æ ¹æ®æ¢è¡Œç¬¦åˆ†å‰²å­—ç¬¦ä¸²
 
-			// Ìæ»»ÎÄ¼ş²Ù×÷
+			// æ›¿æ¢æ–‡ä»¶æ“ä½œ
 			in = new FileInputStream(_file);
 			in.read(fileContext);
 
-			String _fileCode = fileJudgingCode(_file); // ÅĞ¶ÏÎÄ¼ş±àÂë¸ñÊ½
+			String _fileCode = fileJudgingCode(_file); // åˆ¤æ–­æ–‡ä»¶ç¼–ç æ ¼å¼
 
 			String str = new String(fileContext, _fileCode);
-			String[] content = str.split("(\r\n|\r|\n|\n\r)");// ¸ù¾İ»»ĞĞ·û·Ö¸î×Ö·û´®
+			String[] content = str.split("(\r\n|\r|\n|\n\r)");// æ ¹æ®æ¢è¡Œç¬¦åˆ†å‰²å­—ç¬¦ä¸²
 			String newStr = new String();
 
 			for (int i = 0; i < content.length; i++) {
 
 				if (!content[i].equals("")) {
 
-					boolean str2 = content[i].matches(".*[a-zA-z].*");// ÅĞ¶ÏÃ¿ĞĞÊÇ·ñ°üº¬×ÖÄ¸
+					boolean str2 = content[i].matches(".*[a-zA-z].*");// åˆ¤æ–­æ¯è¡Œæ˜¯å¦åŒ…å«å­—æ¯
 
-					if (str2) {// ¼ì²é×Ö·û´®ÊÇ·ñÎª×ÖÄ¸
+					if (str2) {// æ£€æŸ¥å­—ç¬¦ä¸²æ˜¯å¦ä¸ºå­—æ¯
 
 						content[i] = content[i].replace(content[i], sourceFileContent[i]);
 
@@ -194,11 +194,11 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * µ÷ÓÃ°Ù¶ÈApi·­ÒëÎÄ±¾ÄÚÈİ
+	 * è°ƒç”¨ç™¾åº¦Apiç¿»è¯‘æ–‡æœ¬å†…å®¹
 	 * 
-	 * @param sourceTranslation ĞèÒª·­ÒëµÄÎÄ±¾ÄÚÈİ
+	 * @param sourceTranslation éœ€è¦ç¿»è¯‘çš„æ–‡æœ¬å†…å®¹
 	 * 
-	 * @return ÒëÎÄÄÚÈİ
+	 * @return è¯‘æ–‡å†…å®¹
 	 * 
 	 * @date 2021-1-17
 	 */
@@ -210,27 +210,27 @@ public class fileTranslateOperation {
 
 			String query = sourceTranslation;
 
-			String resultMsg = api.getTransResult(query, "auto", "zh"); // µÃµ½°Ù¶ÈAPI·µ»ØµÄJson×Ö·û´®
+			String resultMsg = api.getTransResult(query, "auto", "zh"); // å¾—åˆ°ç™¾åº¦APIè¿”å›çš„Jsonå­—ç¬¦ä¸²
 
-			// ½âÎö×Ö·û´®µÃµ½ÒëÎÄÄÚÈİ
+			// è§£æå­—ç¬¦ä¸²å¾—åˆ°è¯‘æ–‡å†…å®¹
 			if (resultMsg != null && !resultMsg.equals("")) {
 
-				JsonObject jsonObj = (JsonObject) new JsonParser().parse(resultMsg); // ½âÎöjson×Ö¶Î
+				JsonObject jsonObj = (JsonObject) new JsonParser().parse(resultMsg); // è§£æjsonå­—æ®µ
 
-				String res = jsonObj.get("trans_result").toString(); // »ñÈ¡json×Ö¶ÎÖĞµÄ
-																		// result×Ö¶Î£¬ÒòÎªresult×Ö¶Î±¾Éí¼´ÊÇÒ»¸öjsonÊı×é×Ö¶Î£¬ËùÒÔÒª½øÒ»²½½âÎö
+				String res = jsonObj.get("trans_result").toString(); // è·å–jsonå­—æ®µä¸­çš„
+																		// resultå­—æ®µï¼Œå› ä¸ºresultå­—æ®µæœ¬èº«å³æ˜¯ä¸€ä¸ªjsonæ•°ç»„å­—æ®µï¼Œæ‰€ä»¥è¦è¿›ä¸€æ­¥è§£æ
 
-				JsonArray js = new JsonParser().parse(res).getAsJsonArray(); // ½âÎöjsonÊı×é×Ö¶Î
+				JsonArray js = new JsonParser().parse(res).getAsJsonArray(); // è§£æjsonæ•°ç»„å­—æ®µ
 
-				jsonObj = (JsonObject) js.get(0); // resultÊı×éÖĞÖ»ÓĞÒ»¸öÔªËØ£¬ËùÒÔÖ±½ÓÈ¡µÚÒ»¸öÔªËØ
+				jsonObj = (JsonObject) js.get(0); // resultæ•°ç»„ä¸­åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œæ‰€ä»¥ç›´æ¥å–ç¬¬ä¸€ä¸ªå…ƒç´ 
 
-				String translation = jsonObj.get("dst").getAsString(); // µÃµ½dst×Ö¶Î£¬¼´ÒëÎÄ£¬²¢Êä³ö
+				String translation = jsonObj.get("dst").getAsString(); // å¾—åˆ°dstå­—æ®µï¼Œå³è¯‘æ–‡ï¼Œå¹¶è¾“å‡º
 
 				return translation;
 
 			} else {
 
-				System.out.println("·­ÒëÎª¿Õ£¡");
+				System.out.println("ç¿»è¯‘ä¸ºç©ºï¼");
 
 				return null;
 
@@ -238,7 +238,7 @@ public class fileTranslateOperation {
 
 		} catch (Exception e) {
 
-			System.out.println("·­ÒëÊ§°Ü");
+			System.out.println("ç¿»è¯‘å¤±è´¥");
 
 			e.printStackTrace();
 
@@ -248,11 +248,11 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * ½«ÎÄ±¾ÄÚÈİ¶ÁÈëBufferÖĞ
+	 * å°†æ–‡æœ¬å†…å®¹è¯»å…¥Bufferä¸­
 	 * 
 	 * @param buffer buffer
 	 * 
-	 * @param filepath ÎÄ¼şÂ·¾¶
+	 * @param filepath æ–‡ä»¶è·¯å¾„
 	 * 
 	 * @throws IOException
 	 * 
@@ -264,13 +264,13 @@ public class fileTranslateOperation {
 		FileInputStream is = null;
 
 		is = new FileInputStream(filePath);
-		String line = null; // ±£´æÃ¿ĞĞÄÚÈİ
+		String line = null; // ä¿å­˜æ¯è¡Œå†…å®¹
 
 		reader = new BufferedReader(new InputStreamReader(is, "utf-8"));
 
-		line = reader.readLine(); // ¶ÁÈ¡µÚÒ»ĞĞ
+		line = reader.readLine(); // è¯»å–ç¬¬ä¸€è¡Œ
 
-		while (line != null) {// lineÎª¿ÕËµÃ÷¶ÁÍêÁË
+		while (line != null) {// lineä¸ºç©ºè¯´æ˜è¯»å®Œäº†
 
 			buffer.append(line);
 			buffer.append("\r\n");
@@ -284,11 +284,11 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * ×xÈ¡ÎÄ±¾ÎÄ¼şÄÚÈİ
+	 * è®€å–æ–‡æœ¬æ–‡ä»¶å†…å®¹
 	 * 
-	 * @param filePath ÎÄ¼şËùÔÚÂ·½
+	 * @param filePath æ–‡ä»¶æ‰€åœ¨è·¯å¾‘
 	 * 
-	 * @return ÎÄ±¾ÄÚÈİ
+	 * @return æ–‡æœ¬å†…å®¹
 	 * 
 	 * @throws IOException
 	 * 
@@ -305,17 +305,17 @@ public class fileTranslateOperation {
 	}
 
 	/*
-	 * ¶ÁÈ¡×ÖÄ»ÎÄ¼ş£¬·­Òë£¬²¢Ğ´ÈëÉú³ÉĞÂÎÄ¼ş
+	 * è¯»å–å­—å¹•æ–‡ä»¶ï¼Œç¿»è¯‘ï¼Œå¹¶å†™å…¥ç”Ÿæˆæ–°æ–‡ä»¶
 	 * 
-	 * @param iniPath ÎÄ¼şÂ·¾¶
+	 * @param iniPath æ–‡ä»¶è·¯å¾„
 	 * 
-	 * @return ²¼¶ûÀàĞÍ true:Ö´ĞĞ³É¹¦ false:Ö´ĞĞÊ§°Ü
+	 * @return å¸ƒå°”ç±»å‹ true:æ‰§è¡ŒæˆåŠŸ false:æ‰§è¡Œå¤±è´¥
 	 * 
 	 * @date 2021-1-17
 	 */
 	static boolean batchTranslationOperation(String iniPath) {
 
-		File _file = new File(iniPath);// Ìæ»»ÎÄ¼şÂ·¾¶
+		File _file = new File(iniPath);// æ›¿æ¢æ–‡ä»¶è·¯å¾„
 
 		byte[] fileContext = new byte[(int) _file.length()];
 
@@ -324,15 +324,15 @@ public class fileTranslateOperation {
 
 		try {
 
-			// Ìæ»»ÎÄ¼ş²Ù×÷
+			// æ›¿æ¢æ–‡ä»¶æ“ä½œ
 			in = new FileInputStream(_file);
 			in.read(fileContext);
 
-			String fileCode = fileJudgingCode(_file); // ÅĞ¶ÏÎÄ¼ş±àÂë¸ñÊ½
+			String fileCode = fileJudgingCode(_file); // åˆ¤æ–­æ–‡ä»¶ç¼–ç æ ¼å¼
 
 			String str = new String(fileContext, fileCode);
 
-			String[] content = str.split("(\r\n|\r|\n|\n\r)"); // °´»»ĞĞ·û·ÖÀë×Ö·û´®
+			String[] content = str.split("(\r\n|\r|\n|\n\r)"); // æŒ‰æ¢è¡Œç¬¦åˆ†ç¦»å­—ç¬¦ä¸²
 
 			String newStr = new String();
 
@@ -340,9 +340,9 @@ public class fileTranslateOperation {
 
 				if (!content[i].equals("")) {
 
-					boolean str2 = content[i].matches(".*[a-zA-z].*");// ÅĞ¶ÏÃ¿ĞĞÊÇ·ñ°üº¬×ÖÄ¸
+					boolean str2 = content[i].matches(".*[a-zA-z].*");// åˆ¤æ–­æ¯è¡Œæ˜¯å¦åŒ…å«å­—æ¯
 
-					if (str2) {// Èô°üº¬×ÖÄ¸Ôòµ÷ÓÃ°Ù¶È·­Òë ·ñÔòÔòÌø³öÖ±½ÓĞ´ÈëÎÄ¼ş
+					if (str2) {// è‹¥åŒ…å«å­—æ¯åˆ™è°ƒç”¨ç™¾åº¦ç¿»è¯‘ å¦åˆ™åˆ™è·³å‡ºç›´æ¥å†™å…¥æ–‡ä»¶
 
 						String translationMsg = translationOperation(content[i]);
 
